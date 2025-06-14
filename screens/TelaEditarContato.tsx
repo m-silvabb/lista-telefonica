@@ -12,37 +12,28 @@ export default function TelaEditarContato({route, navigation}) {
     const [telefone, setTelefone] = useState('');
 
     useEffect(() => {
-        const carregarDados = async () => {
-            if (contato.id) {
-                const c = await db.getFirstAsync(
-                    "SELECT * FROM contatos WHERE id = ?",
-                    [contato.id]
-                );
-                if (contato) {
-                    setNome(contato.nome);
-                    setTelefone(contato.telefone);
-                }
-            }
-        };
-        carregarDados();
+        if (contato?.id) {
+            setNome(contato.nome);
+            setTelefone(contato.telefone);
+        }
     }, [contato.id]);
 
-    const editar = async() => {
-    if(nome == "" || telefone ==""){
-      Alert.alert("Insira um texto!");
-      return;
+    const editar = async () => {
+        if (nome === "" || telefone === "") {
+            Alert.alert("Erro", "Nome e telefone não podem estar vazios.");
+            return;
+        }
+
+        await db.runAsync(
+            `UPDATE contatos SET nome = ?, telefone = ? WHERE id = ?`,
+            [nome, telefone, contato.id] 
+        );
+        
+        navigation.navigate('TelaInicial');
     }
-
-    await db.runAsync(`UPDATE contatos SET 
-      (nome = (?),telefone=(?)) WHERE id = (?)`, [contato.nome, contato.telefone, contato.id]);
-
-    setNome('');
-    setTelefone('');
-  }
     const excluir = async() => {
-
-    await db.runAsync(`DELETE FROM  contatos  WHERE id = (?)`, [contato.id]);
-    navigation.navigate('TelaInicial');
+        await db.runAsync(`DELETE FROM  contatos  WHERE id = (?)`, [contato.id]);
+        navigation.navigate('TelaInicial');
   }
 
     return <SafeAreaView style={styles.container}>
@@ -71,7 +62,7 @@ export default function TelaEditarContato({route, navigation}) {
                 </View>
 
                 <TouchableOpacity style={styles.button} onPress={editar}>
-                    <Text style={styles.textButton}>Adicionar</Text>
+                    <Text style={styles.textButton}>Editar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={excluir}>
                     <Text style={styles.textButton}>Excluir</Text>
@@ -95,7 +86,7 @@ const styles = StyleSheet.create({
     h1: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#f1c40f',
+        color: 'orange',
         marginTop: 25
     },
 
@@ -103,16 +94,13 @@ const styles = StyleSheet.create({
         width: '100%'
     },
 
-    input: {
-        backgroundColor: '#393939',
-        padding: 10,
-        borderRadius: 20,
-        width: '100%',
-        color: '#ffffff'
+    input:{
+        borderWidth: 1,
+        borderRadius: 10,
     },
 
     textInput: {
-        color: '#ffffff',
+        color: 'black',
         marginLeft: 15,
         marginBottom: 5
     },

@@ -41,7 +41,10 @@ export default function TelaInicial({ navigation }) {
   );
 
   const recarregar = async () => {
-    const temp: _contato[] = await db.getAllAsync("SELECT * FROM contatos WHERE nome LIKE %(?)%", busca);
+    const temp: _contato[] = await db.getAllAsync(
+      "SELECT * FROM contatos WHERE nome LIKE ?", 
+      [`%${busca}%`]
+    );
     setContatos(temp);
   }
 
@@ -77,7 +80,7 @@ export default function TelaInicial({ navigation }) {
         visible={visible}
         icon={{ name: 'add', color: 'white' }}
         color="orange"
-        onPress={navigation.navigate('TelaAdicionarContato')}
+        onPress={() => navigation.navigate('TelaAdicionarContato')}
       />     
     </SafeAreaView>
   );
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     rowGap: 20,
   },
-    fab: {
+  fab: {
     position: 'absolute',
     margin: 16, 
     right: 0,

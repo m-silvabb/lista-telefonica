@@ -15,12 +15,11 @@ export default function TelaAdicionarContato({navigation}) {
       return;
     }
 
-    await db.runAsync(`INSERT INTO contatos 
-      (nome,telefone) VALUES (?), (?)`, nome, telefone);
+    await db.runAsync(`INSERT INTO contatos (nome, telefone) VALUES (?, ?)`, [nome, telefone]);
 
     setNome('');
     setTelefone('');
-    navigation.navigate('TelaInicial');
+    navigation.navigate('TelaInicial'); 
   }
 
     return <SafeAreaView style={styles.container}>
@@ -43,8 +42,8 @@ export default function TelaAdicionarContato({navigation}) {
                     <TextInput
                         placeholder='Telefone'
                         style={styles.input}
-                        value={nome}
-                        onChangeText={text => setNome(text)}
+                        value={telefone}
+                        onChangeText={text => setTelefone(text)}
                     />
                 </View>
 
@@ -70,7 +69,7 @@ const styles = StyleSheet.create({
     h1: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#f1c40f',
+        color: 'orange',
         marginTop: 25
     },
 
@@ -78,16 +77,13 @@ const styles = StyleSheet.create({
         width: '100%'
     },
 
-    input: {
-        backgroundColor: '#393939',
-        padding: 10,
-        borderRadius: 20,
-        width: '100%',
-        color: '#ffffff'
+    input:{
+        borderWidth: 1,
+        borderRadius: 10,
     },
 
     textInput: {
-        color: '#ffffff',
+        color: 'black',
         marginLeft: 15,
         marginBottom: 5
     },

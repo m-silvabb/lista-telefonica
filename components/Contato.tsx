@@ -11,13 +11,13 @@ type _propsContato = {
 }
 
 
-export default function Tarefa(props: _propsContato) {
+export default function Contato(props: _propsContato) {
 
     const ligarParaContato = () => {
         const numero = props.dados.telefone;
         Linking.openURL(`tel:${numero}`);
     };
-
+ 
     return <View style={styles.container}>
         <View style={styles.infoContainer}>
                 <Text style={styles.textoNome}>{props.dados.nome}</Text>
@@ -25,7 +25,7 @@ export default function Tarefa(props: _propsContato) {
         </View>
 
         <View style={styles.botoesContainer}>
-            <TouchableOpacity style={[styles.botao, styles.botaoEditar]} onPress={props.navigation.navigate('TelaEditarContato', { contatoId: props.dados.id })}>
+            <TouchableOpacity style={[styles.botao, styles.botaoEditar]} onPress={() => props.navigation.navigate('TelaEditarContato', { contato: props.dados })}>
                 <Text style={styles.textoBotao}>Editar</Text>
             </TouchableOpacity>
 
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         padding: 15,
+        margin: 10,
         borderRadius: 10,
         elevation: 2,
         shadowColor: '#000',

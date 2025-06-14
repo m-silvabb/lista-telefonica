@@ -11,7 +11,7 @@ export default function App() {
   return (
      <NavigationContainer>
         <Stack.Navigator>        
-            <Stack.Screen name="TelaLogin" component={TelaInicial} options={{headerShown: false}}/>
+            <Stack.Screen name="TelaInicial" component={TelaInicial} options={{headerShown: false}}/>
             <Stack.Screen name="TelaAdicionarContato" component={TelaAdicionarContato} options={{headerShown: false}}/>
             <Stack.Screen name="TelaEditarContato" component={TelaEditarContato} options={{headerShown: false}}/>        
         </Stack.Navigator>
