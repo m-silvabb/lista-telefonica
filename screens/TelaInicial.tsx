@@ -50,19 +50,6 @@ export default function TelaInicial({ navigation }) {
       setContatos(temp);
   }
 
-  const renderLista = () =>{
-    let c = contatos.map(c => 
-            <Contato 
-                dados={c} 
-                db={db} 
-                recarregar={recarregar} 
-                key={c.id}
-                navigation={navigation}
-              />
-          );
-    return c;
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.texto}>Lista Telefonica</Text>
