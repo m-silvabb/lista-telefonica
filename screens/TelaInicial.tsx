@@ -41,11 +41,13 @@ export default function TelaInicial({ navigation }) {
   );
 
   const recarregar = async () => {
+    const sql = "SELECT * FROM contatos WHERE nome LIKE ? ORDER BY nome ASC";
+
     const temp: _contato[] = await db.getAllAsync(
-      "SELECT * FROM contatos WHERE nome LIKE ?", 
+    sql, 
       [`%${busca}%`]
     );
-    setContatos(temp);
+      setContatos(temp);
   }
 
   const renderLista = () =>{
