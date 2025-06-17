@@ -6,7 +6,7 @@ import _contato from '../types/contato';
 import Contato from '../components/Contato';
 import { FAB } from '@rneui/themed';
 
-const db = SQLite.openDatabaseSync("to-do.sqlite");
+const db = SQLite.openDatabaseSync("lista-telefonica.sqlite");
 
 export default function TelaInicial({ navigation }) {
 
